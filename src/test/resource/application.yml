@@ -1,0 +1,15 @@
+spring:
+  sql:
+    init:
+      mode: always
+      data-locations: classpath:initialize.sql
+  autoconfigure:
+    exclude: ord.springframework.boot.autoconfigure.r2dbc.R2dbcAutoConfiguration
+  datasource:
+    username: sa
+    password: ""
+    url: "jdbc:h2:mem:transactions;MODE=MySQL;DB_CLOSE_ON_EXIT=FALSE;DB_CLOSE_DELAY=-1;DATABASE_TO_UPPER=false;INIT=CREATE SCHEMA IF NOT EXISTS transactions"
+    driverClassName: org.h2.Driver
+  jpa:
+    defer-datasource-initialization: true
+    database-platform: org.hibernate.dialect.H2Dialect

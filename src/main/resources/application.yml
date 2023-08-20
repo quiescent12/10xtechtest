@@ -1,0 +1,9 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    username: root
+    password: r00t_p455w0rd
+    url: "jdbc:mysql://localhost:3306/transactions"
+    driverClassName: com.mysql.cj.jdbc.Driver
