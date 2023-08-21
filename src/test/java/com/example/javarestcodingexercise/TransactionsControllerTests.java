@@ -41,7 +41,7 @@ class TransactionsControllerTests {
 		source.setId(sourceId);
 		Account target = new Account(20.0, "GBP");
 		target.setId(targetId);
-		Transaction expectedTransaction = new Transaction(UUID.randomUUID().toString(), sourceId, targetId, transferRequestBody.amount(), "GBP");
+		Transaction expectedTransaction = new Transaction(sourceId, targetId, transferRequestBody.amount(), "GBP");
 
 		when(accountsService.getAccount(sourceId)).thenReturn(source);
 		when(accountsService.getAccount(targetId)).thenReturn(target);

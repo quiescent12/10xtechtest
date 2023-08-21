@@ -1,6 +1,7 @@
 package com.example.javarestcodingexercise.service;
 
 import com.example.javarestcodingexercise.database.AccountsRepository;
+import com.example.javarestcodingexercise.database.TransactionsRepository;
 import com.example.javarestcodingexercise.exception.AccountNotFoundException;
 import com.example.javarestcodingexercise.model.Account;
 import com.example.javarestcodingexercise.model.Transaction;
@@ -17,6 +18,9 @@ import java.util.UUID;
 public class AccountsService {
     @Autowired
     private AccountsRepository accountsRepository;
+
+    @Autowired
+    private TransactionsRepository transactionsRepository;
 
     public Account getAccount(long id) throws AccountNotFoundException {
         Optional<Account> account = accountsRepository.findById(id);
@@ -40,12 +44,13 @@ public class AccountsService {
         double targetNewBalance = target.getBalance() + amount;
         updateBalance(source.getId(), sourceNewBalance);
         updateBalance(target.getId(), targetNewBalance);
-        return new Transaction(
-                UUID.randomUUID().toString(),
-                source.getId(),
-                target.getId(),
-                amount,
-                source.getCurrency()
+        return transactionsRepository.save(
+                new Transaction(
+                        source.getId(),
+                        target.getId(),
+                        amount,
+                        source.getCurrency()
+                )
         );
     }
 }

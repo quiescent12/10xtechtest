@@ -1,5 +1,6 @@
 package com.example.javarestcodingexercise;
 
+import com.example.javarestcodingexercise.database.TransactionsRepository;
 import com.example.javarestcodingexercise.exception.AccountNotFoundException;
 import com.example.javarestcodingexercise.database.AccountsRepository;
 import com.example.javarestcodingexercise.service.AccountsService;
@@ -20,6 +21,9 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class AccountsServiceTests {
+
+    @Mock
+    private TransactionsRepository transactionsRepository;
 
     @Mock
     private AccountsRepository accountsRepository;
@@ -62,19 +66,32 @@ public class AccountsServiceTests {
     }
 
     @Test
-    void transferMoney_successfully() {
+    void transferMoney_bothAccountsAreUpdatedSuccessfully() {
         Account source = new Account(20.0, "GBP");
         source.setId(1234);
         Account target = new Account(20.0, "GBP");
-        source.setId(2345);
+        target.setId(2345);
         double transferAmount = 10.0;
 
-        Transaction actualTransaction = accountsService.transferMoney(source, target, transferAmount);
+        accountsService.transferMoney(source, target, transferAmount);
 
         verify(accountsRepository, times(1)).updateAccountBalance(source.getId(), source.getBalance() - transferAmount);
         verify(accountsRepository, times(1)).updateAccountBalance(target.getId(), target.getBalance() + transferAmount);
-        assertEquals(actualTransaction.sourceAccountId(), source.getId());
-        assertEquals(actualTransaction.targetAccountId(), target.getId());
-        assertEquals(actualTransaction.amount(), transferAmount);
+    }
+
+    @Test
+    void transferMoney_transactionIsReturnedSuccessfully() {
+        Account source = new Account(20.0, "GBP");
+        source.setId(1234);
+        Account target = new Account(20.0, "GBP");
+        target.setId(2345);
+        double transferAmount = 10.0;
+        Transaction expectedTransaction = new Transaction(source.getId(), target.getId(), transferAmount, source.getCurrency());
+        when(transactionsRepository.save(any())).thenReturn(expectedTransaction);
+
+        Transaction actualTransaction = accountsService.transferMoney(source, target, transferAmount);
+
+        verify(transactionsRepository, times(1)).save(any());
+        assertEquals(expectedTransaction, actualTransaction);
     }
 }

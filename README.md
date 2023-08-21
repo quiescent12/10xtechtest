@@ -6,7 +6,22 @@ RESTful API to handle transaction requests.
 1. Run `docker compose up` to run set up mysql database
 2. Exec into mysql pod `docker exec -it mysql bash`
 3. Run `mysql transactions -u root -p` and typing in root password from docker compose file
-4. Create database table by running query `CREATE TABLE accounts(id bigint unsigned primary key NOT NULL AUTO_INCREMENT, balance decimal(10, 2), currency varchar(10), created_at timestamp default current_timestamp);` 
+4. Create database accounts table by running query:
+   5. `CREATE TABLE accounts
+       (
+          id bigint unsigned primary key NOT NULL AUTO_INCREMENT, 
+          balance decimal(10, 2), currency varchar(10), 
+          created_at timestamp default current_timestamp
+       );` 
+5. Create database transactions table by running query:
+   6. `CREATE TABLE transactions
+      (
+          id varchar(36) primary key not null,
+          source_account_id bigint unsigned not null,
+          target_account_id bigint unsigned not null,
+          amount decimal(10, 2) not null,
+          currency varchar(10) not null
+      );`
 
 ## Endpoints
 * POST http://localhost:8080/transactions/transfer
@@ -20,7 +35,6 @@ RESTful API to handle transaction requests.
 
 ## Potential add-ons
 * Handling currency types
-* Committing transactions completed as a value in the database
 * Double amount validation. Use floats?
 * Database schema management - flyway, percona?
 * Metrics
