@@ -2,7 +2,7 @@ package com.example.javarestcodingexercise;
 
 import com.example.javarestcodingexercise.exception.AccountNotFoundException;
 import com.example.javarestcodingexercise.database.AccountsRepository;
-import com.example.javarestcodingexercise.database.AccountsService;
+import com.example.javarestcodingexercise.service.AccountsService;
 import com.example.javarestcodingexercise.model.Account;
 import com.example.javarestcodingexercise.model.Transaction;
 import org.junit.jupiter.api.Test;

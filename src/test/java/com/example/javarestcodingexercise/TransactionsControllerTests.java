@@ -1,7 +1,7 @@
 package com.example.javarestcodingexercise;
 
 import com.example.javarestcodingexercise.controller.TransactionsController;
-import com.example.javarestcodingexercise.database.AccountsService;
+import com.example.javarestcodingexercise.service.AccountsService;
 import com.example.javarestcodingexercise.exception.AccountNotFoundException;
 import com.example.javarestcodingexercise.exception.InsufficientFundsException;
 import com.example.javarestcodingexercise.exception.TargetAccountIsSourceException;

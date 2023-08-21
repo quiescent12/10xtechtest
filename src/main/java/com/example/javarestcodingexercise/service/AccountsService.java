@@ -1,5 +1,6 @@
-package com.example.javarestcodingexercise.database;
+package com.example.javarestcodingexercise.service;
 
+import com.example.javarestcodingexercise.database.AccountsRepository;
 import com.example.javarestcodingexercise.exception.AccountNotFoundException;
 import com.example.javarestcodingexercise.model.Account;
 import com.example.javarestcodingexercise.model.Transaction;

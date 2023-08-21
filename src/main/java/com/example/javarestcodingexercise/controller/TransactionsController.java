@@ -1,12 +1,14 @@
 package com.example.javarestcodingexercise.controller;
 
-import com.example.javarestcodingexercise.database.AccountsService;
+import com.example.javarestcodingexercise.service.AccountsService;
 import com.example.javarestcodingexercise.exception.InsufficientFundsException;
 import com.example.javarestcodingexercise.exception.TargetAccountIsSourceException;
 import com.example.javarestcodingexercise.model.Account;
 import com.example.javarestcodingexercise.model.CreateAccountBody;
 import com.example.javarestcodingexercise.model.Transaction;
 import com.example.javarestcodingexercise.model.TransferRequestBody;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +17,8 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/transaction")
 public class TransactionsController {
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
     @Autowired
     private AccountsService accountsService;
 
@@ -33,6 +37,7 @@ public class TransactionsController {
         }
 
         Transaction transaction = accountsService.transferMoney(source, target, transferRequestBody.amount());
+        logger.info("Transaction made: " + transaction);
         return  ResponseEntity.ok(transaction);
     }
 
