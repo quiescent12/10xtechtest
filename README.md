@@ -38,5 +38,6 @@ RESTful API to handle transaction requests.
 * Double amount validation. Use floats?
 * Database schema management - flyway, percona?
 * Metrics
-* Handling multiple concurrency requests with same data, need to prevent them both executing and transferring twice the amount possible
+* When handling multiple concurrent requests with same data, need to prevent them both executing and transferring twice 
+the amount possible - need some kind of entity locking when getting and committing entities to the database
 * Database error handling - connection loss ect.
