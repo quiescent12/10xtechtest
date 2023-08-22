@@ -22,6 +22,7 @@ RESTful API to handle transaction requests.
           amount decimal(10, 2) not null,
           currency varchar(10) not null
       );`
+6. Run application from main class JavarestcodingexerciseApplication
 
 ## Endpoints
 * POST http://localhost:8080/transactions/transfer
