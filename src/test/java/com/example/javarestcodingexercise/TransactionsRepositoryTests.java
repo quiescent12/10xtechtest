@@ -3,6 +3,7 @@ package com.example.javarestcodingexercise;
 import com.example.javarestcodingexercise.database.AccountsRepository;
 import com.example.javarestcodingexercise.database.TransactionsRepository;
 import com.example.javarestcodingexercise.model.Account;
+import com.example.javarestcodingexercise.model.Currency;
 import com.example.javarestcodingexercise.model.Transaction;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,7 @@ public class TransactionsRepositoryTests {
 
     @Test
     void saveToDatabase_successful() {
-        Transaction transaction = new Transaction(1234, 2345, 20.0,"GBP");
+        Transaction transaction = new Transaction(1234, 2345, 20.0, Currency.GBP);
 
         Transaction transactionExpected = transactionsRepository.save(transaction);
 

@@ -15,19 +15,20 @@ public class Account {
     private double balance;
 
     @Column
-    private String currency;
+    @Enumerated(EnumType.STRING)
+    private Currency currency;
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
     protected Account() {}
 
-    public Account(double balance, String currency) {
+    public Account(double balance, Currency currency) {
         this.balance = balance;
         this.currency = currency;
     }
 
-    public Account(double balance, String currency, LocalDateTime createdAt) {
+    public Account(double balance, Currency currency, LocalDateTime createdAt) {
         this.balance = balance;
         this.currency = currency;
         this.createdAt = createdAt;
@@ -46,7 +47,7 @@ public class Account {
         return balance;
     }
 
-    public String getCurrency() {
+    public Currency getCurrency() {
         return currency;
     }
 
@@ -62,7 +63,7 @@ public class Account {
         this.balance = balance;
     }
 
-    public void setCurrency(String currency) {
+    public void setCurrency(Currency currency) {
         this.currency = currency;
     }
 

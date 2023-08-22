@@ -2,6 +2,7 @@ package com.example.javarestcodingexercise;
 
 import com.example.javarestcodingexercise.database.AccountsRepository;
 import com.example.javarestcodingexercise.model.Account;
+import com.example.javarestcodingexercise.model.Currency;
 import com.example.javarestcodingexercise.model.Transaction;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,7 @@ public class AccountsRepositoryTests {
 
     @Test
     void updateAccountBalance_successful() {
-        Account account = testEntityManager.persist(new Account(20.0, "GBP", LocalDateTime.now()));
+        Account account = testEntityManager.persist(new Account(20.0, Currency.GBP, LocalDateTime.now()));
 
         long accountId = account.getId();
         accountsRepository.updateAccountBalance(accountId, 30.0);
@@ -35,7 +36,7 @@ public class AccountsRepositoryTests {
 
     @Test
     void saveToDatabase_successful() {
-        Account account = new Account(20.0, "GBP", LocalDateTime.now());
+        Account account = new Account(20.0, Currency.GBP, LocalDateTime.now());
 
         Account accountExpected = accountsRepository.save(account);
 
@@ -46,7 +47,7 @@ public class AccountsRepositoryTests {
 
     @Test
     void findById_successful() {
-        Account account = testEntityManager.persist(new Account(20.0, "GBP", LocalDateTime.now()));
+        Account account = testEntityManager.persist(new Account(20.0, Currency.GBP, LocalDateTime.now()));
 
         long accountId = account.getId();
         Account accountActual = accountsRepository.findById(accountId).orElseThrow();

@@ -22,11 +22,12 @@ public class Transaction {
     private double amount;
 
     @Column
-    private String currency;
+    @Enumerated(EnumType.STRING)
+    private Currency currency;
 
     protected Transaction() {}
 
-    public Transaction(long sourceAccountId, long targetAccountId, double amount, String currency) {
+    public Transaction(long sourceAccountId, long targetAccountId, double amount, Currency currency) {
         this.sourceAccountId = sourceAccountId;
         this.targetAccountId = targetAccountId;
         this.amount = amount;
@@ -54,7 +55,7 @@ public class Transaction {
         return amount;
     }
 
-    public String getCurrency() {
+    public Currency getCurrency() {
         return currency;
     }
 
@@ -74,7 +75,7 @@ public class Transaction {
         this.amount = amount;
     }
 
-    public void setCurrency(String currency) {
+    public void setCurrency(Currency currency) {
         this.currency = currency;
     }
 }

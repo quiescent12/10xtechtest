@@ -1,12 +1,9 @@
 package com.example.javarestcodingexercise.controller;
 
+import com.example.javarestcodingexercise.model.*;
 import com.example.javarestcodingexercise.service.AccountsService;
 import com.example.javarestcodingexercise.exception.InsufficientFundsException;
 import com.example.javarestcodingexercise.exception.TargetAccountIsSourceException;
-import com.example.javarestcodingexercise.model.Account;
-import com.example.javarestcodingexercise.model.CreateAccountBody;
-import com.example.javarestcodingexercise.model.Transaction;
-import com.example.javarestcodingexercise.model.TransferRequestBody;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +41,7 @@ public class TransactionsController {
     @PostMapping(path = "/createAccount", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity<Account> createAccount(@RequestBody CreateAccountBody createAccountBody) {
-        String accountCurrency = "GBP";
+        Currency accountCurrency = Currency.GBP;
         if(createAccountBody.currency() != null) {
             accountCurrency = createAccountBody.currency();
         }

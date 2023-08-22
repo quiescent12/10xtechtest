@@ -3,6 +3,7 @@ package com.example.javarestcodingexercise;
 import com.example.javarestcodingexercise.database.TransactionsRepository;
 import com.example.javarestcodingexercise.exception.AccountNotFoundException;
 import com.example.javarestcodingexercise.database.AccountsRepository;
+import com.example.javarestcodingexercise.model.Currency;
 import com.example.javarestcodingexercise.service.AccountsService;
 import com.example.javarestcodingexercise.model.Account;
 import com.example.javarestcodingexercise.model.Transaction;
@@ -34,7 +35,7 @@ public class AccountsServiceTests {
     @Test
     void getAccount_successfully() throws AccountNotFoundException {
         long accountId = 1234;
-        Account expectedAccount = new Account(20.0, "GBP");
+        Account expectedAccount = new Account(20.0, Currency.GBP);
 
         Optional<Account> optionalAccount = Optional.of(expectedAccount);
 
@@ -56,7 +57,7 @@ public class AccountsServiceTests {
 
     @Test
     void createAccount_successfully() {
-        Account expectedAccount = new Account(20.0, "GBP");
+        Account expectedAccount = new Account(20.0, Currency.GBP);
         when(accountsRepository.save(any())).thenReturn(expectedAccount);
 
         Account actualAccount = accountsService.createAccount(expectedAccount.getBalance(), expectedAccount.getCurrency());
@@ -67,9 +68,9 @@ public class AccountsServiceTests {
 
     @Test
     void transferMoney_bothAccountsAreUpdatedSuccessfully() {
-        Account source = new Account(20.0, "GBP");
+        Account source = new Account(20.0, Currency.GBP);
         source.setId(1234);
-        Account target = new Account(20.0, "GBP");
+        Account target = new Account(20.0, Currency.GBP);
         target.setId(2345);
         double transferAmount = 10.0;
 
@@ -81,9 +82,9 @@ public class AccountsServiceTests {
 
     @Test
     void transferMoney_transactionIsReturnedSuccessfully() {
-        Account source = new Account(20.0, "GBP");
+        Account source = new Account(20.0, Currency.GBP);
         source.setId(1234);
-        Account target = new Account(20.0, "GBP");
+        Account target = new Account(20.0, Currency.GBP);
         target.setId(2345);
         double transferAmount = 10.0;
         Transaction expectedTransaction = new Transaction(source.getId(), target.getId(), transferAmount, source.getCurrency());

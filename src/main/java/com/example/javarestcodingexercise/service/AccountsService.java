@@ -4,6 +4,7 @@ import com.example.javarestcodingexercise.database.AccountsRepository;
 import com.example.javarestcodingexercise.database.TransactionsRepository;
 import com.example.javarestcodingexercise.exception.AccountNotFoundException;
 import com.example.javarestcodingexercise.model.Account;
+import com.example.javarestcodingexercise.model.Currency;
 import com.example.javarestcodingexercise.model.Transaction;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,7 @@ public class AccountsService {
         return account.get();
     }
 
-    public Account createAccount(double balance, String currency) {
+    public Account createAccount(double balance, Currency currency) {
         return accountsRepository.save(new Account(balance, currency, LocalDateTime.now()));
     }
 

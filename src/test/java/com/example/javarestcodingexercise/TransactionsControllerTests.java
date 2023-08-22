@@ -1,14 +1,11 @@
 package com.example.javarestcodingexercise;
 
 import com.example.javarestcodingexercise.controller.TransactionsController;
+import com.example.javarestcodingexercise.model.*;
 import com.example.javarestcodingexercise.service.AccountsService;
 import com.example.javarestcodingexercise.exception.AccountNotFoundException;
 import com.example.javarestcodingexercise.exception.InsufficientFundsException;
 import com.example.javarestcodingexercise.exception.TargetAccountIsSourceException;
-import com.example.javarestcodingexercise.model.Account;
-import com.example.javarestcodingexercise.model.CreateAccountBody;
-import com.example.javarestcodingexercise.model.Transaction;
-import com.example.javarestcodingexercise.model.TransferRequestBody;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -37,11 +34,11 @@ class TransactionsControllerTests {
 		long sourceId = 1234;
 		long targetId = 2345;
 		TransferRequestBody transferRequestBody = new TransferRequestBody(sourceId, targetId, 10.0);
-		Account source = new Account(20.0, "GBP");
+		Account source = new Account(20.0, Currency.GBP);
 		source.setId(sourceId);
-		Account target = new Account(20.0, "GBP");
+		Account target = new Account(20.0, Currency.GBP);
 		target.setId(targetId);
-		Transaction expectedTransaction = new Transaction(sourceId, targetId, transferRequestBody.amount(), "GBP");
+		Transaction expectedTransaction = new Transaction(sourceId, targetId, transferRequestBody.amount(), Currency.GBP);
 
 		when(accountsService.getAccount(sourceId)).thenReturn(source);
 		when(accountsService.getAccount(targetId)).thenReturn(target);
@@ -58,9 +55,9 @@ class TransactionsControllerTests {
 		long sourceId = 1234;
 		long targetId = 2345;
 		TransferRequestBody transferRequestBody = new TransferRequestBody(sourceId, targetId, 20.01);
-		Account source = new Account(20.0, "GBP");
+		Account source = new Account(20.0, Currency.GBP);
 		source.setId(sourceId);
-		Account target = new Account(20.0, "GBP");
+		Account target = new Account(20.0, Currency.GBP);
 		target.setId(targetId);
 
 		when(accountsService.getAccount(sourceId)).thenReturn(source);
@@ -97,7 +94,7 @@ class TransactionsControllerTests {
 		long sourceId = 1234;
 		long targetId = 2345;
 		TransferRequestBody transferRequestBody = new TransferRequestBody(sourceId, targetId, 10.0);
-		Account source = new Account(20.0, "GBP");
+		Account source = new Account(20.0, Currency.GBP);
 		source.setId(sourceId);
 
 		when(accountsService.getAccount(sourceId)).thenReturn(source);
@@ -110,7 +107,7 @@ class TransactionsControllerTests {
 
 	@Test
 	void createAccount_successful() {
-		CreateAccountBody createAccountBody = new CreateAccountBody(20.0, "GBP");
+		CreateAccountBody createAccountBody = new CreateAccountBody(20.0, Currency.GBP);
 		Account expectedAccount = new Account(createAccountBody.balance(), createAccountBody.currency());
 
 		when(accountsService.createAccount(createAccountBody.balance(), createAccountBody.currency())).thenReturn(expectedAccount);
