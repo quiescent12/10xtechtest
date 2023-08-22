@@ -28,7 +28,7 @@ public class TransactionsController {
         if (transferRequestBody.sourceAccountId() == transferRequestBody.targetAccountId()) {
             throw new TargetAccountIsSourceException(transferRequestBody.sourceAccountId());
         }
-
+        // TODO: Account checks should maybe be part of update balance transaction
         Account source = accountsService.getAccount(transferRequestBody.sourceAccountId());
         Account target = accountsService.getAccount(transferRequestBody.targetAccountId());
 
@@ -49,6 +49,7 @@ public class TransactionsController {
             accountCurrency = createAccountBody.currency();
         }
         Account account = accountsService.createAccount(createAccountBody.balance(), accountCurrency);
+        logger.info("Account created: " + account);
         return ResponseEntity.ok(account);
     }
 }

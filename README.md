@@ -41,3 +41,4 @@ RESTful API to handle transaction requests.
 * When handling multiple concurrent requests with same data, need to prevent them both executing and transferring twice 
 the amount possible - need some kind of entity locking when getting and committing entities to the database
 * Database error handling - connection loss ect.
+* Account checks should maybe be part of update balance transaction
